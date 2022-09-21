@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario 1 Fabian</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/reset.css">
+
+</head>
+<body>
+<header>
+ <h1>Revisión del código</h1> 
+</header>
+
+ <div class="top">
+
+   <h2>Suscríbase a nuestro boletín de noticias</h2>
+   <p>Reciba las últimas noticias sobre la evolución de su código en su bandeja de entrada</p>
+
+  </div>
+  
+      <form action="" method="post" accept-charset="ISO-8859-1">
+  
+          <fieldset class="contact">
+            <legend>Información de contacto</legend>
+  
+          <div class="contact_input">
+            <label for="nombre">Nombre completo</label>
+            <input type="text"  id="nombre" name="nombre" aria-describedby="nombre" placeholder="requerido" required><br>
+          </div>
+      
+          <div class="contact_input">
+                  <label for="email">E-mail</label>
+                  <input type="email" name="email" class="form-control" id="e-mail" aria-describedby="e-mail" placeholder="requerido" required><br>
+          </div> 
+
+          <div class="contact_input">
+              <label for="telefono">Numero de telefono</label>
+              <input type="tel"  id="telefono" name="telefono" aria-describedby="telefono" ><br>
+          </div>
+
+          <div class="contact_input">
+              <label for="direccion">Dirección</label>
+              <input type="text"  id="direccion" name="direccion" aria-describedby="direccion" ><br>
+          </div>
+
+          <div class="contact_input">
+              <label for="ciudad">Ciudad</label>
+              <input type="text"  id="ciudad" name="ciudad" aria-describedby="ciudad"><br>
+          </div>
+          
+          <div class="contact_input">
+
+              <label for="provincia">Provincia</label> 
+              <select name="provincia" id="provincia" >
+                <option value="0" selected disabled hidden>Elige tu opción</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+              </select><br>
+
+          </div>
+
+          <div class="contact_input">
+              <label id="label_zipCode" for="zipCode">Codigo zip</label><br>
+              <input type="text"  id="zipCode" name="zip" aria-describedby="zip"><br>
+            </div>
+          </fieldset>
+          
+          <div>
+            <button type="submit" >Enviar</button>
+          </div>
+  
+          <hr>
+
+          <legend>Boletín de noticias</legend>
+          
+              <label>Seleccione los boletines que desea recibir</label><br>
+            <br>
+          <input type="checkbox" name="HMTL News" id="cbox1">
+          <label for="HTML News">HTML News</label><br>
+
+          <input type="checkbox" name="CSS News" id="cbox2">
+          <label for="CSS News">CSS News</label><br>
+
+          <input type="checkbox" name="Javascript News" id="cbox3">
+          <label for="Javascript News">Javascript News</label><br>
+          
+          <div>
+              <p>Formato del boletín de noticias</p>
+          <input type="radio" name="HTML" id="radio1">
+          <label for="HTML">HTML</label><br>
+
+          <input type="radio" name="Plain Text" id="radio2">
+          <label for="Plain text">Plain text</label>
+        
+          </div>
+  
+          <div>
+            
+  <p>Otros temas que le gustaría conocer</p>
+  <textarea placeholder="" cols="40" rows="5" id="otrostemas" name="otrostemas"></textarea>
+  
+          </div>
+  
+        <button type="submit">Inscribirse</button>  
+      </form>
+
+ <footer> 
+      <p>Derechos de autor de la revisión del código</p>
+
+  </footer>
+  
+  </body>
+  </html>
