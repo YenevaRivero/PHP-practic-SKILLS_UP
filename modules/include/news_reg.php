@@ -1,7 +1,7 @@
 <?php
 require "../require/config.php";
 
-$nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check = $noticia =$otrostemas="";
+$nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check = $noticia = $otrostemas="";
 
         function limpiar_dato($data){
             $data = trim($data); // Elimina espacio en blanco (u otro tipo de caracteres) del inicio o final de la cadena
@@ -9,8 +9,6 @@ $nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check
             $data = htmlspecialchars($data); //Limpiar caracteres especiales.
             return $data; //Devuelve el valor de las variables (lo que escribimos en los inputs)
         }
-
-
 
         function validar_nombre($nombre){
             
@@ -23,7 +21,7 @@ $nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check
             }
     
             function validar_telefono($telefono){
-                if(!preg_match('/^[0-9]{10}+$/', $telefono)){
+                if(!preg_match('/^[0-9]{9}+$/', $telefono)){
                     return false;
                 } else{
                     return true;
@@ -39,7 +37,7 @@ $nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check
                     }
             }
         
-    
+  //BORRAR LOS ECHOS AL COMPROBAR QUE SIRVE  
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     print_r ($_POST);
     if(!empty($_POST["nombre"]) || !empty($_POST["email"]) || !empty($_POST["telefono"])){
@@ -50,6 +48,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "<strong>Email: </strong>" . $email . "<br>";
         $telefono= limpiar_dato($_POST["telefono"]);
         echo "<strong>Telefono: </strong>" . $telefono . "<br>";
+
+        //Ver si las variables tienen valor, contenido.
+        //if (isset($_POST["direccion])) ? $direccion = limpiar_dato($_POST["direccion]);
+        if(isset($_POST["direccion"])){
+            $direccion =limpiar_dato($_POST["direccion"]);
+        } else{
+            $direccion = NULL;
+        }
+
+        if(isset($_POST["ciudad"])){
+            $ciudad =limpiar_dato($_POST["ciudad"]);
+        } else{
+            $ciudad = NULL;
+        }
+
+        if(isset($_POST["provincia"])){
+            $provincia =limpiar_dato($_POST["provincia"]);
+        } else{
+            $provincia = NULL;
+        }
+
+        if(isset($_POST["zip"])){
+            $zip =limpiar_dato($_POST["zip"]);
+        } else{
+            $zip = NULL;
+        }
+
+        if(isset($_POST["check"])){
+            $check =limpiar_dato($_POST["check"]);
+        } else{
+            $check = NULL;
+        }
+
+        if(isset($_POST["noticia"])){
+            $noticia =limpiar_dato($_POST["noticia"]);
+        } else{
+            $noticia = NULL;
+        }
+
+        if(isset($_POST["otrostemas"])){
+            $otrostemas =limpiar_dato($_POST["otrostemas"]);
+        } else{
+            $otrostemas = NULL;
+        }
+
         $direccion= limpiar_dato($_POST["direccion"]);
         $ciudad= limpiar_dato($_POST["ciudad"]);
         $provincia= limpiar_dato($_POST["provincia"]);
@@ -58,13 +101,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $noticia= limpiar_dato($_POST["noticia"]);
         $otrostemas= limpiar_dato($_POST["otrostemas"]);
 
-
+//BORRAR FUNCIONES CUANDO COMPROBEMOS QUE SIRVEN.
         if(validar_nombre($nombre)){
             echo"validada";
         } else{
             echo"no valida";
         }
-/* revisar validaciones
+
         if(validar_email($email)){
             echo"validada";
         } else{
@@ -76,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             echo"no valida";
         }
-*/
+
     }
 
 }
