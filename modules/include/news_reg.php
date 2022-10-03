@@ -87,9 +87,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             if(isset($_POST["provincia"])){
                 $provincia =limpiar_dato($_POST["provincia"]);
-        } else{
+            }   else{
             $provincia = NULL;
-        }
+            }
 
         if(isset($_POST["zip"])){
             $zip =limpiar_dato($_POST["zip"]);
@@ -114,14 +114,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             $otrostemas = NULL;
         }
-        
-        $direccion= limpiar_dato($_POST["direccion"]);
-        $ciudad= limpiar_dato($_POST["ciudad"]);
-        $provincia= limpiar_dato($_POST["provincia"]);
-        $zip= limpiar_dato($_POST["zip"]);
-        $check= limpiar_dato($_POST["check"]);
-        $noticia= limpiar_dato($_POST["noticia"]);
-        $otrostemas= limpiar_dato($_POST["otrostemas"]);
         
         } else{
         
