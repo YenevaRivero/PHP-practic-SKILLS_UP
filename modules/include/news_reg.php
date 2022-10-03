@@ -2,6 +2,7 @@
 require "../require/config.php";
 
 $nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check = $noticia = $otrostemas="";
+$nombre_err = $email_err = $telefono_err = false;
 
         function limpiar_dato($data){
             $data = trim($data); // Elimina espacio en blanco (u otro tipo de caracteres) del inicio o final de la cadena
@@ -49,22 +50,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $telefono= limpiar_dato($_POST["telefono"]);
         echo "<strong>Telefono: </strong>" . $telefono . "<br>";
 
-        //Ver si las variables tienen valor, contenido.
-        //if (isset($_POST["direccion])) ? $direccion = limpiar_dato($_POST["direccion]);
-        if(isset($_POST["direccion"])){
-            $direccion =limpiar_dato($_POST["direccion"]);
+        if(validar_nombre($nombre)){
+            echo"validada";
         } else{
-            $direccion = NULL;
+            $nombre_err = true;
         }
 
-        if(isset($_POST["ciudad"])){
-            $ciudad =limpiar_dato($_POST["ciudad"]);
+        if(validar_email($email)){
+            echo"validada";
         } else{
-            $ciudad = NULL;
+            $email_err = true;
+        }
+        
+        if(validar_telefono($telefono)){
+            echo"validada";
+        } else{
+            $telefono_err = true;
         }
 
-        if(isset($_POST["provincia"])){
-            $provincia =limpiar_dato($_POST["provincia"]);
+        if( validar_nombre($nombre) || validar_email($email) || validar_telefono($telefono) ){
+
+            
+            //Ver si las variables tienen valor, contenido.
+            //if (isset($_POST["direccion])) ? $direccion = limpiar_dato($_POST["direccion]);
+            if(isset($_POST["direccion"])){
+                $direccion =limpiar_dato($_POST["direccion"]);
+            } else{
+                $direccion = NULL;
+            }
+            
+            if(isset($_POST["ciudad"])){
+                $ciudad =limpiar_dato($_POST["ciudad"]);
+            } else{
+                $ciudad = NULL;
+            }
+            
+            if(isset($_POST["provincia"])){
+                $provincia =limpiar_dato($_POST["provincia"]);
         } else{
             $provincia = NULL;
         }
@@ -80,19 +102,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             $check = NULL;
         }
-
+        
         if(isset($_POST["noticia"])){
             $noticia =limpiar_dato($_POST["noticia"]);
         } else{
             $noticia = NULL;
         }
-
+        
         if(isset($_POST["otrostemas"])){
             $otrostemas =limpiar_dato($_POST["otrostemas"]);
         } else{
             $otrostemas = NULL;
         }
-
+        
         $direccion= limpiar_dato($_POST["direccion"]);
         $ciudad= limpiar_dato($_POST["ciudad"]);
         $provincia= limpiar_dato($_POST["provincia"]);
@@ -100,27 +122,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $check= limpiar_dato($_POST["check"]);
         $noticia= limpiar_dato($_POST["noticia"]);
         $otrostemas= limpiar_dato($_POST["otrostemas"]);
-
-//BORRAR FUNCIONES CUANDO COMPROBEMOS QUE SIRVEN.
-        if(validar_nombre($nombre)){
-            echo"validada";
+        
         } else{
-            echo"no valida";
-        }
-
-        if(validar_email($email)){
-            echo"validada";
-        } else{
-            echo"no valida";
+        
+            if ($nombre_err == true){
+                echo "La validación del nombre ha fallado";
+            }elseif($email_err == true){
+                echo "La validación del email ha fallado";
+            }elseif($telefono_err == true);
+                echo "La validación del teléfono ha fallado";
         }
         
-        if(validar_telefono($telefono)){
-            echo"validada";
-        } else{
-            echo"no valida";
-        }
-
+    } else{
+        echo "Uno de los datos requeridos no ha sido rellenado";
     }
-
+    
+} else{
+    echo "No hemos recibido método post";
 }
+
 ?>
