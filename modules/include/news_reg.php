@@ -4,39 +4,39 @@ require "../require/config.php";
 $nombre = $email = $telefono = $direccion = $ciudad = $provincia = $zip = $check = $noticia = $otrostemas="";
 $nombre_err = $email_err = $telefono_err = false;
 
-        function limpiar_dato($data){
-            $data = trim($data); // Elimina espacio en blanco (u otro tipo de caracteres) del inicio o final de la cadena
-            $data = stripslashes($data); // Devuelve cadenas con las barras invertidas o comillas borradas.
-            $data = htmlspecialchars($data); //Limpiar caracteres especiales.
-            return $data; //Devuelve el valor de las variables (lo que escribimos en los inputs)
-        }
+function limpiar_dato($data){
+    $data = trim($data); // Elimina espacio en blanco (u otro tipo de caracteres) del inicio o final de la cadena
+    $data = stripslashes($data); // Devuelve cadenas con las barras invertidas o comillas borradas.
+    $data = htmlspecialchars($data); //Limpiar caracteres especiales.
+    return $data; //Devuelve el valor de las variables (lo que escribimos en los inputs)
+}
 
-        function validar_nombre($nombre){
-            
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$nombre)) {
-                return false;
+function validar_nombre($nombre){
     
-                }  else{
-                    return true;
-                }
-            }
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$nombre)) {
+        return false;
+
+        }  else{
+            return true;
+        }
+    }
     
-            function validar_telefono($telefono){
-                if(!preg_match('/^[0-9]{9}+$/', $telefono)){
-                    return false;
-                } else{
-                    return true;
-                }
-    
-            }
-    
-            function validar_email($email){
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    return false;
-                    } else{
-                        return true;
-                    }
-            }
+function validar_telefono($telefono){
+    if(!preg_match('/^[0-9]{9}+$/', $telefono)){
+        return false;
+    } else{
+        return true;
+    }
+
+}
+
+function validar_email($email){
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+        } else{
+            return true;
+        }
+}
         
   //BORRAR LOS ECHOS AL COMPROBAR QUE SIRVE  
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -129,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "Uno de los datos requeridos no ha sido rellenado";
     }
     
-} else{
+} else {
     echo "No hemos recibido método post";
 }
 
