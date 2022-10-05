@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $telefono_err = true;
         }
 
-        if( validar_nombre($nombre) || validar_email($email) || validar_telefono($telefono) ){
+        if( validar_nombre($nombre) && validar_email($email) && validar_telefono($telefono) ){
 
             
             //Ver si las variables tienen valor, contenido.
@@ -91,30 +91,52 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $provincia = NULL;
             }
 
-        if(isset($_POST["zip"])){
-            $zip =limpiar_dato($_POST["zip"]);
-        } else{
-            $zip = NULL;
-        }
+            if(isset($_POST["zip"])){
+                $zip =limpiar_dato($_POST["zip"]);
+            } else{
+                $zip = NULL;
+            }
 
-        if(isset($_POST["check"])){
-            $check =limpiar_dato($_POST["check"]);
-        } else{
-            $check = NULL;
-        }
-        
-        if(isset($_POST["noticia"])){
-            $noticia =limpiar_dato($_POST["noticia"]);
-        } else{
-            $noticia = NULL;
-        }
-        
-        if(isset($_POST["otrostemas"])){
-            $otrostemas =limpiar_dato($_POST["otrostemas"]);
-        } else{
-            $otrostemas = NULL;
-        }
-        
+            if(isset($_POST["check"])){
+                $check =limpiar_dato($_POST["check"]);
+            } else{
+                $check = NULL;
+            }
+            
+            if(isset($_POST["noticia"])){
+                $noticia =limpiar_dato($_POST["noticia"]);
+                if($noticia=="HMTL"){
+                    $noticia=1; // Value de HTML en los radios.
+                } else{
+                    $noticia=0; //Value de Texto plano en los radios.
+                }
+
+            } else{
+                $noticia = NULL;
+            }
+            
+            if(isset($_POST["otrostemas"])){
+                $otrostemas =limpiar_dato($_POST["otrostemas"]);
+            } else{
+                $otrostemas = NULL;
+            }
+
+            // echo "<strong>Noticias que quiere recibir: $noticia";
+
+            // ====================== BORRAME
+            echo "<br><strong>Nombre:</strong> $nombre <br>";
+            echo "<br><strong>Teléfono:</strong> $telefono <br>";
+            echo "<br><strong>Email:</strong> $email <br>";
+            echo "<br><strong>Dirección:</strong> $direccion <br>";
+            echo "<br><strong>Ciudad:</strong> $ciudad <br>";
+            echo "<br><strong>Provincia:</strong> $provincia <br>";
+            echo "<br><strong>Zip:</strong> $zip <br>";
+            //echo "<strong>Noticias: </strong> $noticia <br>";
+            echo "<br><strong>Checkbox:</strong> $check <br>";
+            echo "<br><strong>Noticia:</strong> $noticia <br>";
+            echo "<br><strong>Otros temas:</strong> $otrostemas <br>";
+
+
         } else{
         
             if ($nombre_err == true){
