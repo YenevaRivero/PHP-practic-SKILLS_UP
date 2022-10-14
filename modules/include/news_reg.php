@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
             } else{
-                $noticia = NULL;
+                $noticia = 1;
             }
             
             if(isset($_POST["otrostemas"])){
