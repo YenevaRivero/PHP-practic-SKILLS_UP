@@ -112,9 +112,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             var_dump($check);
             
-            //echo "<br>Longitud de check: ".count($check) .".";
+            ///echo "<br>Longitud de check: ".count($check) .".";
 
-           // echo "<br>";
+           /// echo "<br>";
             
             // === Usa un array y muestra sus valores separados por coma (o lo que se ponga entre comillas).
 
