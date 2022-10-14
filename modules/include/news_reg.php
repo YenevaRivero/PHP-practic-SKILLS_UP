@@ -97,11 +97,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $zip = NULL;
             }
 
-            if(isset($_POST["check"])){
+        /* if(isset($_POST["check"])){
                 $check =limpiar_dato($_POST["check"]);
             } else{
                 $check = NULL;
-            }
+            } */
+
+            $check = filter_input(
+                INPUT_POST,
+                "check",
+                FILTER_SANITIZE_SPECIAL_CHARS,
+                FILTER_REQUIRE_ARRAY
+            );
+
+            var_dump($check);
+            
+            //echo "<br>Longitud de check: ".count($check) .".";
+
+           // echo "<br>";
+            
+            // === Usa un array y muestra sus valores separados por coma (o lo que se ponga entre comillas).
+
+            $string = implode(", ", $check);
+            echo $string;
+            echo "<br>";
+
+            // === FIN MOSTRAR valores array.
             
             if(isset($_POST["noticia"])){
                 $noticia =limpiar_dato($_POST["noticia"]);
@@ -132,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "<br><strong>Provincia:</strong> $provincia <br>";
             echo "<br><strong>Zip:</strong> $zip <br>";
             //echo "<strong>Noticias: </strong> $noticia <br>";
-            echo "<br><strong>Checkbox:</strong> $check <br>";
+            //echo "<br><strong>Checkbox:</strong> $check <br>";
             echo "<br><strong>Noticia:</strong> $noticia <br>";
             echo "<br><strong>Otros temas:</strong> $otrostemas <br>";
 
@@ -156,3 +177,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 ?>
+
