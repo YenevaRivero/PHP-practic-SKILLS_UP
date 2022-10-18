@@ -17,7 +17,7 @@ function validar_nombre($nombre){
     if (!preg_match("/^[a-zA-Z-' ]*$/",$nombre)) {
         return false;
 
-        }  else{
+        }  else {
             return true;
         }
     }
@@ -25,7 +25,7 @@ function validar_nombre($nombre){
 function validar_telefono($telefono){
     if(!preg_match('/^[0-9]{9}+$/', $telefono)){
         return false;
-    } else{
+    } else {
         return true;
     }
 
@@ -34,7 +34,7 @@ function validar_telefono($telefono){
 function validar_email($email){
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
-        } else{
+        } else {
             return true;
         }
 }
@@ -44,30 +44,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     print_r ($_POST);
     if(!empty($_POST["nombre"]) || !empty($_POST["email"]) || !empty($_POST["telefono"])){
         echo "<br><strong>Metodo post enviado</strong><br>";
-        $nombre= limpiar_dato($_POST["nombre"]);
+        $nombre = limpiar_dato($_POST["nombre"]);
         echo "<strong>Nombre: </strong>" . $nombre . "<br>";
-        $email= limpiar_dato($_POST["email"]);
+        $email = limpiar_dato($_POST["email"]);
         echo "<strong>Email: </strong>" . $email . "<br>";
-        $telefono= limpiar_dato($_POST["telefono"]);
+        $telefono = limpiar_dato($_POST["telefono"]);
         echo "<strong>Telefono: </strong>" . $telefono . "<br>";
 
 
 
         if(validar_nombre($nombre)){
             echo"validada";
-        } else{
+        } else {
             $nombre_err = true;
         }
 
         if(validar_email($email)){
             echo"validada";
-        } else{
+        } else {
             $email_err = true;
         }
         
         if(validar_telefono($telefono)){
             echo"validada";
-        } else{
+        } else {
             $telefono_err = true;
         }
 
@@ -77,26 +77,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             //Ver si las variables tienen valor, contenido.
             //if (isset($_POST["direccion])) ? $direccion = limpiar_dato($_POST["direccion]);
             if(isset($_POST["direccion"])){
-                $direccion =limpiar_dato($_POST["direccion"]);
-            } else{
+                $direccion = limpiar_dato($_POST["direccion"]);
+            } else {
                 $direccion = NULL;
             }
             
             if(isset($_POST["ciudad"])){
-                $ciudad =limpiar_dato($_POST["ciudad"]);
-            } else{
+                $ciudad = limpiar_dato($_POST["ciudad"]);
+            } else {
                 $ciudad = NULL;
             }
             
             if(isset($_POST["provincia"])){
-                $provincia =limpiar_dato($_POST["provincia"]);
-            }   else{
+                $provincia = limpiar_dato($_POST["provincia"]);
+            } else {
             $provincia = NULL;
             }
 
             if(isset($_POST["zip"])){
-                $zip =limpiar_dato($_POST["zip"]);
-            } else{
+                $zip = limpiar_dato($_POST["zip"]);
+            } else { 
                 $zip = NULL;
             }
 
@@ -124,31 +124,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             switch ($lengArray){
                 case 1:
                     if($check=[0] == "HTML News"){
-                            $checkboxs = 100;
-                    } elseif($check[0] == "CSS News"){
-                            $checkboxs = 010;
-                    } else{
-                            $checkboxs = 001;
+                            $checkboxs = bindec('100');
+                    } elseif ($check[0] == "CSS News") {
+                            $checkboxs = bindec('010');
+                    } else {
+                            $checkboxs = bindec('001');
                     }
                     break;
+
                 case 2:
                     if($check[0] != "HTML News"){
-                            $checkboxs = 011;
-                        } elseif($check[0] != "CSS News"){
-                            $checkboxs = 101;
+                            $checkboxs = bindec('011');
+                        } elseif ($check[0] != "CSS News" && $check[1] == "Javascript News") {
+                            $checkboxs = bindec('101');
                         } else {
-                            $checkboxs = 110;
+                            $checkboxs = bindec('110');
                         }
+                        break;
 
-                    break;
                 case 3:
-                    $checkboxs = 111 ;
+                    $checkboxs = bindec('111') ;
                     break;
                 default: 
-                    $checkboxs = 100;
+                    $checkboxs = bindec('100');
             }
 
-            echo "valor a devolver " . $checkboxs ."<br>";
+            echo "<br> valor a devolver <strong>" . $checkboxs . "</strong>";
 
 
             // === Usa un array y muestra sus valores separados por coma (o lo que se ponga entre comillas).
@@ -163,17 +164,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $noticia =limpiar_dato($_POST["noticia"]);
                 if($noticia=="HMTL"){
                     $noticia=1; // Value de HTML en los radios.
-                } else{
+                } else {
                     $noticia=0; //Value de Texto plano en los radios.
                 }
 
-            } else{
+            } else {
                 $noticia = 1;
             }
             
             if(isset($_POST["otrostemas"])){
                 $otrostemas =limpiar_dato($_POST["otrostemas"]);
-            } else{
+            } else {
                 $otrostemas = NULL;
             }
 
@@ -187,31 +188,69 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "<br><strong>Ciudad:</strong> $ciudad <br>";
             echo "<br><strong>Provincia:</strong> $provincia <br>";
             echo "<br><strong>Zip:</strong> $zip <br>";
-            //echo "<strong>Noticias: </strong> $noticia <br>";
-            //echo "<br><strong>Checkbox:</strong> $check <br>";
+            echo "<br><strong>Checkbox:</strong> $check <br>";
             echo "<br><strong>Noticia:</strong> $noticia <br>";
             echo "<br><strong>Otros temas:</strong> $otrostemas <br>";
 
             //Comprobar que no existen datos que se van a enviar: nombre, email y telefono.
 
-            SELECT fullname, email, phone FROM news_reg WHERE $nombre="fullname", $email="email", $telefono="phone";
+            try{
+                $sql = "SELECT * from news_reg WHERE fullname = :fullname OR email = :email OR phone = :phone";
             
-            //Si devuelve algo, que
-            // INSERT datos a la base de datos;
+                $stmt = $conn->prepare($sql);
 
-            INSERT INTO fullname, email, phone, address, city, state, zipcode, newsletters, format_news, suggestion VALUES ($nombre,  $email,  $telefono,  $direccion,  $ciudad,  $provincia,  $zip,  $check,  $noticia, $otrostemas);
+                $stmt->bindParam(":fullname", $nombre, PDO::PARAM_STR);
+                $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+                $stmt->bindParam(":phone", $telefono, PDO::PARAM_STR);
+
+                $stmt->execute();
+                $resultado = $stmt->fetchAll();
+                echo "Resultado es: " . var_dump($resultado) . "<br>";
+                if($resultado){
+                    echo "La información existe. <br>";
+                    } else {
+
+                        //realizamos la inserción
+                        //INSERT datos a la base de datos;
+
+                        try{
+                            $sql ="INSERT INTO news_reg (fullname, email, phone, address, city, state, zipcode, newsletters, format_news, suggestion) VALUES (:fullname, :email, :phone, :address, :city, :state, :zipcode, :newsletters, :format_news, :suggestion)";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bindParam(':fullname', $nombre, PDO::PARAM_STR);
+                            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                            $stmt->bindParam(':phone', $telefono, PDO::PARAM_STR);
+                            $stmt->bindParam(':address', $direccion, PDO::PARAM_STR);
+                            $stmt->bindParam(':city', $ciudad, PDO::PARAM_STR);
+                            $stmt->bindParam(':state', $provincia, PDO::PARAM_STR);
+                            $stmt->bindParam(':zipcode', $zip, PDO::PARAM_STR);
+                            $stmt->bindParam(':newsletters', $checkboxs, PDO::PARAM_INT);
+                            $stmt->bindParam(':format_news', $noticia, PDO::PARAM_INT);
+                            $stmt->bindParam(':suggestion', $otrostemas, PDO::PARAM_STR);
+
+                            $stmt->execute();
+                            echo "New record created succesfully.<br>";
+                            echo "Valor a ingresado decimal de 3bit: " . $checkboxs . "<br>";
+
+                        } catch(PDOException $e){
+                            echo $sql . "<br>" . $e->getMessage();
+                        }
+                        $conn = null;
+                    }
+                } catch(PDOException $e){
+                    echo $sql . "<br>" . $e->getMessage();  
+                }
             
-        } else{
+        } else {
             echo "Una de las validaciones ha fallado. </br>";
-            if ($nombre_err == true){
+            if($nombre_err == true){
                 echo "La validación del nombre ha fallado";
-            }elseif($email_err == true){
+            } elseif($email_err == true){
                 echo "La validación del email ha fallado";
-            }elseif($telefono_err == true);
+            } elseif($telefono_err == true);
                 echo "La validación del teléfono ha fallado";
         }
         
-    } else{
+    } else {
         echo "Uno de los datos requeridos no ha sido rellenado";
     }
     
